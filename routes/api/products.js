@@ -3,14 +3,12 @@ const { NotFound, BadRequest } = require('http-errors')
 const Joi=require('joi')
 const productsOperations = require('../../models/products')
 const router = express.Router()
+const {validation}=require('../../middlewares/index')
+const {joiProductSchema}=require('../../validations')
 
-const joiSchema = Joi.object({
-    name: Joi.string().required(),
-    price: Joi.number().min(0.01).required(),
-    location: Joi.string().required(),
-});
-
-router.get('/', async (_, res, next) => {
+router.get('/',
+    async (req, res, next) => {
+        console.log(req.body);
     try {
         const products = await productsOperations.getAll()
         res.json(products)
@@ -41,12 +39,9 @@ router.get('/:id', async (req, res, next) => {
     }
 })
 
-router.post('/', async (req, res, next) => {
+router.post('/', validation(joiProductSchema),
+    async (req, res, next) => {
     try {
-        const { error } = joiSchema.validate(req.body)
-        if (error) {
-            throw new BadRequest(error.message)
-        }
         const result = await productsOperations.add(req.body)
         res.status(201).json({
             status: 'success',
@@ -58,13 +53,9 @@ router.post('/', async (req, res, next) => {
     }
 })
 
-router.put('/:id', async (req, res, next) => {
+router.put('/:id', validation(joiProductSchema), async (req, res, next) => {
 
     try {
-        const { error } = joiSchema.validate(req.body)
-        if (error) {
-            throw new BadRequest(error.message)
-        }
         const { id } = req.params
         const result = await productsOperations.updateById(id, req.body)
         if (!result) {
