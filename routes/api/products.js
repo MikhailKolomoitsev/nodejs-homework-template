@@ -1,6 +1,5 @@
 const express = require('express')
 const { NotFound, BadRequest } = require('http-errors')
-const Joi=require('joi')
 const productsOperations = require('../../models/products')
 const router = express.Router()
 const {validation}=require('../../middlewares/index')
