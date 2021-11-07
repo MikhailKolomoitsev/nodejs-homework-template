@@ -1,8 +1,7 @@
 const productsOperations = require('../../models/products')
+const { NotFound } = require('http-errors')
 
 const updateById = async (req, res, next) => {
-
-    try {
         const { id } = req.params
         const result = await productsOperations.updateById(id, req.body)
         if (!result) {
@@ -13,9 +12,6 @@ const updateById = async (req, res, next) => {
             code: 200,
             data: { result }
         })
-    } catch (error) {
-        next(error)
-    }
 }
 
     module.exports = updateById

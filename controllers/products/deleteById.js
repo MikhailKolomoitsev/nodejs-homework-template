@@ -1,7 +1,7 @@
 const productsOperations = require('../../models/products')
+const { NotFound } = require('http-errors')
 
 const deleteById = async (req, res, next) => {
-    try {
         const { id } = req.params
         const result = await productsOperations.removeById(id)
         if (!result) {
@@ -12,9 +12,6 @@ const deleteById = async (req, res, next) => {
             code: 200,
             message: "Remove success"
         })
-    } catch (error) {
-
-    }
 }
 
 module.exports = deleteById

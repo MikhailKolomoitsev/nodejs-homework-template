@@ -2,17 +2,17 @@ const express = require('express')
 
 const { products: ctrl } = require('../../controllers')
 const router = express.Router()
-const { validation } = require('../../middlewares/index')
+const { validation, controllerWrapper } = require('../../middlewares/index')
 const { joiProductSchema } = require('../../validations')
 
-router.get('/', ctrl.getAll)
+router.get('/', controllerWrapper(ctrl.getAll))
 
-router.get('/:id', ctrl.getById)
+router.get('/:id', controllerWrapper(ctrl.getById))
 
-router.post('/', validation(joiProductSchema), ctrl.add)
+router.post('/', validation(joiProductSchema), controllerWrapper(ctrl.add))
 
-router.put('/:id', validation(joiProductSchema), ctrl.updateById)
+router.put('/:id', validation(joiProductSchema), controllerWrapper(ctrl.updateById))
 
-router.delete('/:id', ctrl.deleteById)
+router.delete('/:id', controllerWrapper(ctrl.deleteById))
 
 module.exports = router
