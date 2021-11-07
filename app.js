@@ -1,10 +1,14 @@
 const express = require('express')
-// const logger = require('morgan')
 const cors = require('cors')
 const mongoose = require('mongoose')
 
 const app = express()
 app.use(cors())
+
+app.get('/', (res, req) => {
+  res.semd('<h2>Homepage</h2>')
+})
+
 const DB_HOST = 'mongodb+srv://Mikhail:E7AW5xRzhkPBjKhm@cluster0.v82oo.mongodb.net/db-contacts?retryWrites=true&w=majority'
 mongoose.connect(DB_HOST)
   .then(() => {
