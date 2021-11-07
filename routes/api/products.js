@@ -1,90 +1,18 @@
 const express = require('express')
-const { NotFound, BadRequest } = require('http-errors')
-const productsOperations = require('../../models/products')
+
+const { products: ctrl } = require('../../controllers')
 const router = express.Router()
-const {validation}=require('../../middlewares/index')
-const {joiProductSchema}=require('../../validations')
+const { validation } = require('../../middlewares/index')
+const { joiProductSchema } = require('../../validations')
 
-router.get('/',
-    async (req, res, next) => {
-        console.log(req.body);
-    try {
-        const products = await productsOperations.getAll()
-        res.json(products)
-    } catch (error) {
-        next(error)
-        // res.status(500).json({
-        //     status: 'error',
-        //     code: 500,
-        //     message: 'Server error'
-        // })
-    }
-})
+router.get('/', ctrl.getAll)
 
-router.get('/:id', async (req, res, next) => {
-    try {
-        const { id } = req.params
-        const result = await productsOperations.getById(id)
-        if (!result) {
-            throw new NotFound(`Product ${id} not found`)
-        }
-        res.json({
-            status: 'success',
-            code: 200,
-            data: { result }
-        })
-    } catch (error) {
-        next(error)
-    }
-})
+router.get('/:id', ctrl.getById)
 
-router.post('/', validation(joiProductSchema),
-    async (req, res, next) => {
-    try {
-        const result = await productsOperations.add(req.body)
-        res.status(201).json({
-            status: 'success',
-            code: 201,
-            data: { result }
-        })
-    } catch (error) {
-        next(error)
-    }
-})
+router.post('/', validation(joiProductSchema), ctrl.add)
 
-router.put('/:id', validation(joiProductSchema), async (req, res, next) => {
+router.put('/:id', validation(joiProductSchema), ctrl.updateById)
 
-    try {
-        const { id } = req.params
-        const result = await productsOperations.updateById(id, req.body)
-        if (!result) {
-            throw new NotFound(`Product ${id} not found`)
-        }
-        res.json({
-            status: 'success',
-            code: 200,
-            data: { result }
-        })
-    } catch (error) {
-        next(error)
-    }
-})
-
-router.delete('/:id', async (req, res, next) => {
-    try {
-        const { id } = req.params
-        const result = await productsOperations.removeById(id)
-        if (!result) {
-            throw new NotFound(`Product ${id} not found`)
-        }
-        res.status(201).json({
-            status: 'success',
-            code: 200,
-            message: "Remove success"
-        })
-    } catch (error) {
-        
-    }
-})
+router.delete('/:id', ctrl.deleteById)
 
 module.exports = router

@@ -42,15 +42,15 @@
     "id": "6710e01e-9a29-4512-b269-22ec9c0590c8"
   },
   {
-    "name": "rocks",
-    "price": 22,
-    "location": "Mountains",
-    "id": "55bccf53-99f3-45b0-9b44-3b07d40b437f"
-  },
-  {
     "name": "MacBook",
     "price": 2000,
     "location": "AppStore",
     "id": "5d313ebb-b070-4ba5-b697-644c27e06d2a"
+  },
+  {
+    "name": "S-Works Tarmac",
+    "price": 8000,
+    "location": "Specialized",
+    "id": "364c4d8c-59a2-4294-a0c9-680cd26ae34d"
   }
 ]

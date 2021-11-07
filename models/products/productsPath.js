@@ -1,5 +1,5 @@
 const path = require("path");
 
-const productsPath = path.join(__dirname, "products.json");
+const productsPath = path.join('db', "products.json");
 
 module.exports = productsPath;
