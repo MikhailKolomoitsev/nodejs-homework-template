@@ -1,15 +1,23 @@
+const mongoose = require('mongoose')
 const express = require('express')
 const cors = require('cors')
-const mongoose = require('mongoose')
+const dotenv = require('dotenv')
+dotenv.config()
+let DB_HOST = ''
+if (process.env.DB_HOST) {
+  DB_HOST = process.env.DB_HOST
+} else {
+  const db_host = require('./config')
+  DB_HOST = db_host
+}
 
 const app = express()
 app.use(cors())
 
 app.get('/', (res, req) => {
-  res.semd('<h2>Homepage</h2>')
+  res.send('<h2>Homepage</h2>')
 })
 
-const DB_HOST = 'mongodb+srv://Mikhail:E7AW5xRzhkPBjKhm@cluster0.v82oo.mongodb.net/db-contacts?retryWrites=true&w=majority'
 mongoose.connect(DB_HOST)
   .then(() => {
     console.log('Database connection successful')
