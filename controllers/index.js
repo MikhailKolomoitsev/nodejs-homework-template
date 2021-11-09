@@ -1,3 +1,3 @@
-const products = require('./products')
+const {Contact} = require('./contacts')
 
-module.exports = { products }
+module.exports = { Contact }
