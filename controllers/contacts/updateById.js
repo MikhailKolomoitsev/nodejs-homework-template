@@ -1,9 +1,9 @@
-const productsOperations = require('../../models/products')
+const { Contact } = require('../../models')
 const { NotFound } = require('http-errors')
 
 const updateById = async (req, res, next) => {
         const { id } = req.params
-        const result = await productsOperations.updateById(id, req.body)
+    const result = await Contact.findByIdAndUpdate(id, req.body, {new: true})
         if (!result) {
             throw new NotFound(`Product ${id} not found`)
         }

@@ -1,6 +1,6 @@
 const { Schema, model } = require('mongoose')
 const Joi = require('joi')
-const pattern = /^[0-9]{10}$/
+const patternRegExp = /^[0-9]{10}$/
 const contactSchema = Schema({
     name: {
         type: String,
@@ -11,19 +11,19 @@ const contactSchema = Schema({
     },
     phone: {
         type: Number,
-        match: pattern
+        match: patternRegExp
     },
     favorite: {
         type: Boolean,
         default: false,
     },
-}
+}, {versionKey: false, timestamps: true}
 )
 
 const joiSchema = Joi.object({
     name: Joi.string().required(),
     email: Joi.string().required(),
-    phone: Joi.string().pattern(pattern),
+    phone: Joi.string().pattern(patternRegExp),
     favorite: Joi.boolean()
 })
 

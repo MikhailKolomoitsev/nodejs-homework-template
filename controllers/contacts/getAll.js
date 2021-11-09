@@ -1,7 +1,7 @@
-const productsOperations = require('../../models/products')
+const { Contact } = require('../../models')
 
 const getAll = async (req, res, next) => {
-    const products = await productsOperations.getAll()
+    const products = await Contact.find({})
     res.json(products)
 }
 
