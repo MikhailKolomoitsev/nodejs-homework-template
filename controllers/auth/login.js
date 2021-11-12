@@ -1,7 +1,7 @@
 const { User } = require('../../models')
 const { BadRequest } = require('http-errors')
 const jwt = require('jsonwebtoken')
-const {SECRET_KEY} = process.env
+const { SECRET_KEY } = process.env
 
 const login = async (req, res, next) => {
     const { email, password } = req.body
